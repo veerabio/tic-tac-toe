@@ -4,7 +4,7 @@ from board import Board
 class Game:
 
     def __init__(self, board_printer):
-        self.__board = Board()
+        self.__board = Board(3)
         self.__board_printer = board_printer
         self.__x_turn = True
 
