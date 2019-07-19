@@ -1,12 +1,11 @@
-import sys
 from board import Board
-from board_printer import BoardPrinter
 
 
 class Game:
 
-    def __init__(self):
+    def __init__(self, board_printer):
         self.__board = Board()
+        self.__board_printer = board_printer
         self.__x_turn = True
 
     def who_won(self):
@@ -39,15 +38,14 @@ class Game:
         return True
 
     def print_board(self):
-        BoardPrinter.print_board(self.__board)
+        self.__board_printer.print_board(self.__board)
 
     def prompt(self, who):
         while True:
-            sys.stdout.write(f"{who} turn, select a square (e.g. A0, B2, C1):")
-            user_sel = BoardPrinter.get_selection()
+            user_sel = self.__board_printer.get_selection(who)
             if self.__board[user_sel] is None:
                 return user_sel
-            print("Invalid selection, try again...")
+            self.__board_printer.print_invalid_selection()
 
     def set_selection(self, sel, who):
         self.__board[sel] = who
@@ -68,9 +66,7 @@ class Game:
         self.print_board()
         winner = self.who_won()
         if winner is None:
-            print("")
-            print("Aw, bummer. Cat's game. Meow!")
+            self.__board_printer.print_cats_game()
         else:
             winner = "X" if winner else "O"
-            print("")
-            print(f"Huzzah! {winner} won!")
+            self.__board_printer.print_winner(winner)
