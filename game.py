@@ -31,8 +31,8 @@ class Game:
 
     def cats_game(self):
         # Check if any space on the board is still empty
-        for x in range(3):
-            for y in range(3):
+        for x in range(self.__board.size):
+            for y in range(self.__board.size):
                 if self.__board[x, y] is None:
                     return False
         return True
