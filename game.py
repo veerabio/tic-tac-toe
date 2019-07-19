@@ -7,6 +7,7 @@ class Game:
 
     def __init__(self):
         self.__board = Board()
+        self.__x_turn = True
 
     def who_won(self):
         # horizontals
@@ -43,11 +44,33 @@ class Game:
     def prompt(self, who):
         while True:
             sys.stdout.write(f"{who} turn, select a square (e.g. A0, B2, C1):")
-            user_sel = self.__board.selection_to_row_col(input())
-            if user_sel:
+            user_sel = BoardPrinter.get_selection()
+            if self.__board[user_sel] is None:
                 return user_sel
             print("Invalid selection, try again...")
-        return None
 
     def set_selection(self, sel, who):
         self.__board[sel] = who
+
+    def run(self):
+        while not self.has_winner() and not self.cats_game():
+            self.print_board()
+
+            # Prompt user to select a square
+            whose_turn = "X's" if self.__x_turn else "O's"
+            selection = self.prompt(whose_turn)
+
+            # record their selection
+            self.set_selection(selection, self.__x_turn)
+
+            self.__x_turn = not self.__x_turn  # next players turn
+
+        self.print_board()
+        winner = self.who_won()
+        if winner is None:
+            print("")
+            print("Aw, bummer. Cat's game. Meow!")
+        else:
+            winner = "X" if winner else "O"
+            print("")
+            print(f"Huzzah! {winner} won!")
