@@ -11,12 +11,12 @@ class Game:
 
     def who_won(self):
         # horizontals
-        for x in range(self.__board.columns):
+        for x in range(self.__board.size):
             if self.__board[x, 0] == self.__board[x, 1] and self.__board[x, 1] == self.__board[x, 2]:
                 return self.__board[x, 0]
 
         # Verticals
-        for y in range(self.__board.rows):
+        for y in range(self.__board.size):
             if self.__board[0, y] == self.__board[1, y] and self.__board[1, y] == self.__board[2, y]:
                 return self.__board[0, y]
 

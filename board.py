@@ -1,11 +1,10 @@
 class Board:
-    def __init__(self):
+    def __init__(self, size=3):
         # X = True
         # O = False
         # Empty = None
-        self.__game_board = [[None, None, None],
-                      [None, None, None],
-                      [None, None, None]]
+        self.__size = size
+        self.__game_board = [[None for _ in range(size)] for _ in range(size)]
 
     def __getitem__(self, sel):
         return self.__game_board[sel[0]][sel[1]]
@@ -14,9 +13,5 @@ class Board:
         self.__game_board[sel[0]][sel[1]] = who
 
     @property
-    def rows(self):
-        return 3
-
-    @property
-    def columns(self):
-        return 3
+    def size(self):
+        return self.__size

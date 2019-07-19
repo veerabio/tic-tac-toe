@@ -9,8 +9,8 @@ class BoardPrinter:
     @staticmethod
     def print_board(board):
         print("")
-        for r in range(board.rows):
-            for c in range(board.columns):
+        for r in range(board.size):
+            for c in range(board.size):
                 who = board[r, c]
                 if who is None:
                     print(f" {BoardPrinter.columns[c]}{r} ", end='')
